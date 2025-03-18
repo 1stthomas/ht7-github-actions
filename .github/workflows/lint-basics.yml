@@ -1,0 +1,39 @@
+name: Lint Basics
+
+on:
+    workflow_call:
+        inputs:
+            xml_path:
+                description: "Path to XML files"
+                type: string
+                required: false
+                default: "."
+            xml_file_endings:
+                description: "File endings for XML files"
+                type: string
+                required: false
+                default: ".xml"
+
+jobs:
+  Lint-Basics:
+    name: Lint Basics
+    runs-on: ubuntu-22.04
+    permissions:
+      contents: read
+      pull-requests: write
+    steps:
+      - name: "Checkout ${{ github.repository }}"
+        uses: actions/checkout@v4
+      - name: GitHub Action Lint
+        uses: devops-actions/actionlint@v0.1.2
+      - name: XML Lint
+        uses: action-pack/valid-xml@v1
+        with:
+          path: "${{ inputs.xml_path }}"
+          file-endings: "${{ inputs.xml_file_endings }}"
+      - name: Markdown Lint
+        run: docker run --volume "$PWD:/workdir" ghcr.io/igorshubovych/markdownlint-cli:latest "**/*.md"
+      - name: PHP syntax check
+        run: find . -name '*.php' -exec php -l {} \;
+      - name: PHP Composer Lint
+        run: "composer validate --strict"
