@@ -8,10 +8,12 @@ jobs:
     name: Security-Composer
     runs-on: ubuntu-22.04
     steps:
-        - uses: actions/checkout@v4
+      - name: "Checkout ${{ github.repository }}"
+        uses: actions/checkout@v4
         # - uses: actions/cache@v4
         #   id: cache-db
         #   with:
         #       path: ~/.symfony/cache
         #       key: db
-        - uses: symfonycorp/security-checker-action@v5
+      - name: Check composer dependencies
+        uses: symfonycorp/security-checker-action@v5
