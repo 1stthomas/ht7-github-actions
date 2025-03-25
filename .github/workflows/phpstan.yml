@@ -1,0 +1,36 @@
+name: PHPStan
+
+on:
+    workflow_call:
+        inputs:
+            level:
+                description: "PHPStan level"
+                type: string
+                required: false
+                default: "max"
+            path:
+                description: "Path to the files to lint"
+                type: string
+                required: false
+                default: "src/ tests/"
+            php_version:
+                description: "PHP version to run PHPStan with"
+                type: string
+                required: false
+                default: "8.4"
+
+jobs:
+  PHPStan:
+    name: PHPStan
+    runs-on: ubuntu-22.04
+    steps:
+      - name: "Checkout ${{ github.repository }}"
+        uses: actions/checkout@v4
+      - name: Install composer dependencies
+        uses: php-actions/composer@v6
+      - name: Run PHPStan
+        uses: php-actions/phpstan@v3
+        with:
+          level: "${{ inputs.level }}"
+          path: "${{ inputs.path }}"
+          php_version: "${{ inputs.php_version }}"
