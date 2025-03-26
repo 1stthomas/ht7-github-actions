@@ -8,7 +8,7 @@ on:
                 type: string
                 required: false
                 default: "phpunit-report"
-            artifacts_path:
+            artifact_path:
                 description: "Artifacts path to report"
                 type: string
                 required: false
