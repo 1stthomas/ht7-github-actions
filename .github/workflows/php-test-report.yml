@@ -40,7 +40,7 @@ jobs:
           uses: actions/download-artifact@v4
           with:
             name: ${{ inputs.artifact_name }}
-            path: ${{ inputs.artifacts_path}}
+            path: ${{ inputs.artifact_path}}
         - name: Remove artifact
           uses: geekyeggo/delete-artifact@v5
           with:
@@ -52,7 +52,7 @@ jobs:
         - name: Get errors count
           id: errors-count
           run: |
-            ERROR_COUNT="$(grep -E 'name=\"/home/' "${{ inputs.artifacts_path }}${{ inputs.report_name }}" | grep -o -P '(?<=errors=\").*(?=\" fail)')"
+            ERROR_COUNT="$(grep -E 'name=\"/home/' "${{ inputs.artifacts_path }}""${{ inputs.report_name }}" | grep -o -P '(?<=errors=\").*(?=\" fail)')"
             echo "ERROR_COUNT=\"$ERROR_COUNT\"" >> "$GITHUB_ENV"
         - name: Generate failed test summary if necessary
           run: |
