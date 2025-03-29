@@ -52,19 +52,19 @@ jobs:
         - name: Get errors count
           id: errors-count
           run: |
-            ERROR_COUNT="$(grep -E 'name=\"/home/' "${{ inputs.artifacts_path }}""${{ inputs.report_name }}" | grep -o -P '(?<=errors=\").*(?=\" fail)')"
+            ERROR_COUNT="$(grep -E 'name=\"/home/' "${{ inputs.artifact_path }}""${{ inputs.report_name }}" | grep -o -P '(?<=errors=\").*(?=\" fail)')"
             echo "ERROR_COUNT=\"$ERROR_COUNT\"" >> "$GITHUB_ENV"
         - name: Generate failed test summary if necessary
           run: |
-            FAILURE_COUNT="$(grep -E 'name=\"/home/' "${{ inputs.artifacts_path }}${{ inputs.report_name }}" | grep -o -P '(?<=failures=\").*(?=\" skipped)')"
+            FAILURE_COUNT="$(grep -E 'name=\"/home/' "${{ inputs.artifact_path }}${{ inputs.report_name }}" | grep -o -P '(?<=failures=\").*(?=\" skipped)')"
             if [ "$FAILURE_COUNT" -ne "0" ]; then
-              npx github-actions-ctrf failed "${{ inputs.artifacts_path }}"phpunit-report.ctrf.json
+              npx github-actions-ctrf failed "${{ inputs.artifact_path }}"phpunit-report.ctrf.json
             fi
         - name: Generate skipped test summary if necessary
           run: |
-            SKIPPED_COUNT="$(grep -E 'name=\"/home/' "${{ inputs.artifacts_path }}${{ inputs.report_name }}" | grep -o -P '(?<=skipped=\").*(?=\" time)')"
+            SKIPPED_COUNT="$(grep -E 'name=\"/home/' "${{ inputs.artifact_path }}${{ inputs.report_name }}" | grep -o -P '(?<=skipped=\").*(?=\" time)')"
             if [ "$SKIPPED_COUNT" -ne "0" ]; then
-              npx github-actions-ctrf skipped "${{ inputs.artifacts_path }}"phpunit-report.ctrf.json
+              npx github-actions-ctrf skipped "${{ inputs.artifact_path }}"phpunit-report.ctrf.json
             fi
         - name: Generate tests list
-          run: npx github-actions-ctrf tests "${{ inputs.artifacts_path }}"phpunit-report.ctrf.json --exit-on-fail
+          run: npx github-actions-ctrf tests "${{ inputs.artifact_path }}"phpunit-report.ctrf.json --exit-on-fail
