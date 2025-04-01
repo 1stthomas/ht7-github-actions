@@ -1,18 +1,18 @@
 name: Lint Basics
 
 on:
-    workflow_call:
-        inputs:
-            xml_path:
-                description: "Path to XML files"
-                type: string
-                required: false
-                default: "."
-            xml_file_endings:
-                description: "File endings for XML files"
-                type: string
-                required: false
-                default: ".xml"
+  workflow_call:
+    inputs:
+      xml_path:
+        description: "Path to XML files"
+        type: string
+        required: false
+        default: "."
+      xml_file_endings:
+        description: "File endings for XML files"
+        type: string
+        required: false
+        default: ".xml"
 
 jobs:
   Lint-Basics:

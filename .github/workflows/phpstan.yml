@@ -1,23 +1,23 @@
 name: PHPStan
 
 on:
-    workflow_call:
-        inputs:
-            level:
-                description: "PHPStan level"
-                type: string
-                required: false
-                default: "max"
-            path:
-                description: "Path to the files to lint"
-                type: string
-                required: false
-                default: "src/ tests/"
-            php_version:
-                description: "PHP version to run PHPStan with"
-                type: string
-                required: false
-                default: "8.4"
+  workflow_call:
+    inputs:
+      level:
+        description: "PHPStan level"
+        type: string
+        required: false
+        default: "max"
+      path:
+        description: "Path to the files to lint"
+        type: string
+        required: false
+        default: "src/ tests/"
+      php_version:
+        description: "PHP version to run PHPStan with"
+        type: string
+        required: false
+        default: "8.4"
 
 jobs:
   PHPStan:

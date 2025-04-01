@@ -1,32 +1,32 @@
 name: Lint Basics
 
 concurrency:
-    group: ${{ github.workflow }}-${{ github.ref }}
-    cancel-in-progress: true
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 on:
-    push:
-        branches:
+  push:
+    branches:
             - '**'
 
 jobs:
-    Action-Lint:
-        name: Lint Basics
-        runs-on: ubuntu-22.04
-        permissions:
-          contents: read
-          pull-requests: write
-        steps:
-          - name: "Checkout ${{ github.repository }}"
-            uses: actions/checkout@v4
-          - name: Lint GitHub Actions
-            uses: devops-actions/actionlint@v0.1.2
-          - name: Lint XML
-            uses: action-pack/valid-xml@v1
-            with:
-              path: "."
-              file-endings: ".xml"
-          - name: Lint Markdown
-            run: docker run --volume "$PWD:/workdir" ghcr.io/igorshubovych/markdownlint-cli:latest "**/*.md"
-          - name: Lint PHP syntax
-            run: find . -name '*.php' -exec php -l {} \;
+  Action-Lint:
+    name: Lint Basics
+    runs-on: ubuntu-22.04
+    permissions:
+      contents: read
+      pull-requests: write
+    steps:
+      - name: "Checkout ${{ github.repository }}"
+        uses: actions/checkout@v4
+      - name: Lint GitHub Actions
+        uses: devops-actions/actionlint@v0.1.2
+      - name: Lint XML
+        uses: action-pack/valid-xml@v1
+        with:
+          path: "."
+          file-endings: ".xml"
+      - name: Lint Markdown
+        run: docker run --volume "$PWD:/workdir" ghcr.io/igorshubovych/markdownlint-cli:latest "**/*.md"
+      - name: Lint PHP syntax
+        run: find . -name '*.php' -exec php -l {} \;
