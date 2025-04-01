@@ -1,13 +1,13 @@
 name: PHP-CS-Fixer
 
 on:
-    workflow_call:
-        inputs:
-            config_path:
-                description: "Path to the PHP-CS-Fixer configuration file"
-                type: string
-                required: false
-                default: ".php-cs-fixer.dist.php"
+  workflow_call:
+    inputs:
+      config_path:
+        description: "Path to the PHP-CS-Fixer configuration file"
+        type: string
+        required: false
+        default: ".php-cs-fixer.dist.php"
 
 jobs:
   PHP-CS-Fixer:
@@ -23,10 +23,16 @@ jobs:
         id: phpcs-intersection
         run: |
           CHANGED_FILES=$(echo "${{ steps.changed-files.outputs.all_changed_files }}" | tr ' ' '\n')
-          if ! echo "${CHANGED_FILES}" | grep -qE "^(\\.php-cs-fixer(\\.dist)?\\.php|composer\\.lock)$"; then EXTRA_ARGS=$(printf -- '--path-mode=intersection\n--\n%s' "${CHANGED_FILES}"); else EXTRA_ARGS=''; fi
-          echo "PHPCS_EXTRA_ARGS<<EOF" >> $GITHUB_ENV
-          echo "$EXTRA_ARGS" >> $GITHUB_ENV
-          echo "EOF" >> $GITHUB_ENV
+          if ! echo "${CHANGED_FILES}" | grep -qE "^(\\.php-cs-fixer(\\.dist)?\\.php|composer\\.lock)$"; then
+            EXTRA_ARGS=$(printf -- '--path-mode=intersection\n--\n%s' "${CHANGED_FILES}");
+          else
+            EXTRA_ARGS='';
+          fi
+          {
+            echo "PHPCS_EXTRA_ARGS<<EOF"
+            echo "$EXTRA_ARGS"
+            echo "EOF"
+          } >> "$GITHUB_ENV"
       - name: Run PHP-CS-Fixer
         uses: docker://oskarstark/php-cs-fixer-ga
         with:
