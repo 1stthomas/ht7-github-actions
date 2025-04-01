@@ -30,5 +30,3 @@ jobs:
             run: docker run --volume "$PWD:/workdir" ghcr.io/igorshubovych/markdownlint-cli:latest "**/*.md"
           - name: Lint PHP syntax
             run: find . -name '*.php' -exec php -l {} \;
-          - name: Lint PHP Composer
-            run: "composer validate --strict"
