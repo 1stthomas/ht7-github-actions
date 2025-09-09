@@ -27,7 +27,7 @@ jobs:
       - name: "Checkout ${{ github.repository }}"
         uses: actions/checkout@v4
       - name: Configure Git safe directory
-        run: git config --global --add safe.directory /github/workspace
+        run: git config --global --add safe.directory /app
       - name: Install composer dependencies
         uses: php-actions/composer@v6
       - name: Run PHPStan
