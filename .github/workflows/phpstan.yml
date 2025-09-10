@@ -39,4 +39,4 @@ jobs:
         with:
           level: "${{ inputs.level }}"
           path: "${{ inputs.path }}"
-          php_version: 8.4
+          php_version: "${{ inputs.php_version }}"
